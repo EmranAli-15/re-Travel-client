@@ -22,8 +22,8 @@ const Navbar = () => {
                                                 }
                                         </ul>
                                 </div>
-                                <a className="btn btn-ghost hover:bg-transparent normal-case text-xl">
-                                        <img src={logo} alt="" />
+                                <a>
+                                        <img className='w-full h-16' src={logo} alt="" />
                                 </a>
                         </div>
                         <div className="navbar-center hidden lg:flex">
