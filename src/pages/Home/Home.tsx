@@ -1,10 +1,11 @@
+import Banner from "./Banner/Banner";
 import SearchBar from "./SearchBar/SearchBar";
 
 const Home = () => {
         return (
                 <div className="mt-4">
                         <SearchBar></SearchBar>
-                        <h1>This is home page</h1>
+                        <Banner></Banner>
                 </div>
         );
 };

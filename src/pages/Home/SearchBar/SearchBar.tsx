@@ -24,8 +24,8 @@ const SearchBar = () => {
                                         <option>Sajek Velly</option>
                                         <option>Bandarbon</option>
                                 </select>
-                                <button>
-                                        <FcSearch size={24}>
+                                <button className="ml-4">
+                                        <FcSearch size={30}>
                                                 <input type="submit" value="" />
                                         </FcSearch>
                                 </button>
