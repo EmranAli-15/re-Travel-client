@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 
 const AllTicket = () => {
@@ -9,7 +10,8 @@ const AllTicket = () => {
                 price: number,
                 agency: string,
                 logo: string,
-                service: string
+                service: string,
+                placeName: string
         }
 
         const [allTicket, setAllTicket] = useState([]);
@@ -20,25 +22,25 @@ const AllTicket = () => {
                         .then(data => setAllTicket(data))
         }, [])
         return (
-                <div className="grid grid-cols-2 gap-2 mt-20">
+                <div className="grid md:grid-cols-3 p-1 gap-y-4 mt-20">
                         {
                                 allTicket.map((ticket: ticketData, index) =>
                                         <div key={index}>
-                                                <div className="gap-x-1 md:gap-x-4 md:flex items-center p-1 border-gray-400 rounded-lg border-[1px]">
-                                                        <div className="md:w-[40%]">
-                                                                <img src={ticket.img} className="w-full md:w-64 rounded-lg" />
+                                                <div className="w-full md:w-[400px] h-[280px] mx-auto border-[1px] relative">
+                                                        <div>
+                                                                <img className="w-full z-10 h-[200px]" src={ticket.img} alt="" />
                                                         </div>
-
-                                                        <div className="md:w-[60%]">
-                                                                <div>
-                                                                        <p>From : {ticket.from}</p>
-                                                                        <p>To : {ticket.to}</p>
-                                                                        <p>Price : {ticket.price}</p>
-                                                                        <p>Service : {ticket.service}</p>
-                                                                </div>
-                                                                <div className="md:flex justify-between items-center">
-                                                                        <p>Agency: {ticket.agency}</p>
-                                                                        <button className="btn mt-4 md:mt-0 btn-xs btn-outline btn-gray-400">cart</button>
+                                                        <p className="absolute top-2 right-0 bg-slate-50 rounded-l-md pl-1">From: <span className="text-orange-500">${ticket.price}</span></p>
+                                                        <div className="p-2">
+                                                                <h3 className="text-[20px] font-semibold font-serif mb-2">{ticket.placeName}</h3>
+                                                                <div className="flex items-center justify-between">
+                                                                        <div className="flex items-center gap-x-2">
+                                                                                <FaMapMarkerAlt></FaMapMarkerAlt>
+                                                                                <p>{ticket.to}</p>
+                                                                        </div>
+                                                                        <button className="btn btn-outline btn-xs btn-gray-200">
+                                                                                details
+                                                                        </button>
                                                                 </div>
                                                         </div>
                                                 </div>
