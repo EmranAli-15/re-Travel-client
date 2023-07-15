@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-
 const AllTicket = () => {
         type ticketData = {
                 img: string,
@@ -30,7 +29,7 @@ const AllTicket = () => {
                                                         <div>
                                                                 <img className="w-full z-10 h-[200px]" src={ticket.img} alt="" />
                                                         </div>
-                                                        <p className="absolute top-2 right-0 bg-slate-50 rounded-l-md pl-1">From: <span className="text-orange-500">${ticket.price}</span></p>
+                                                        <p className="absolute top-2 right-0 bg-slate-50 rounded-l-md px-1">From: <span className="text-orange-500">${ticket.price}</span></p>
                                                         <div className="p-2">
                                                                 <h3 className="text-[20px] font-semibold font-serif mb-2">{ticket.placeName}</h3>
                                                                 <div className="flex items-center justify-between">

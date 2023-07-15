@@ -1,14 +1,23 @@
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import logo from '../../../assets/logo.png'
+import useAuth from '../../../hooks/useAuth';
 
 const Navbar = () => {
+        const { user, logOut }: any = useAuth();
 
         const navList = (
                 <>
-                        <li> <NavLink to="">Journey</NavLink> </li>
+                        <li> <NavLink to="/">Journey</NavLink> </li>
                         <li> <NavLink to="">My Profile</NavLink> </li>
                 </>
         )
+
+        const handleLogOut = () => {
+                logOut()
+                        .then(() => { })
+                        .catch(() => { })
+        }
+
         return (
                 <div className="navbar bg-base-100">
                         <div className="navbar-start">
@@ -22,9 +31,9 @@ const Navbar = () => {
                                                 }
                                         </ul>
                                 </div>
-                                <a>
+                                <Link to="/">
                                         <img className='w-full h-16' src={logo} alt="" />
-                                </a>
+                                </Link>
                         </div>
                         <div className="navbar-center hidden lg:flex">
                                 <ul className="gap-6 menu-horizontal px-1">
@@ -34,7 +43,17 @@ const Navbar = () => {
                                 </ul>
                         </div>
                         <div className="navbar-end">
-                                <a className="btn">Button</a>
+                                {
+                                        user ?
+                                                <div>
+                                                        <button onClick={handleLogOut}>log Out</button>
+                                                </div> :
+                                                <div>
+                                                        <button>
+                                                                <Link to="/login">log In</Link>
+                                                        </button>
+                                                </div>
+                                }
                         </div>
                 </div>
         );

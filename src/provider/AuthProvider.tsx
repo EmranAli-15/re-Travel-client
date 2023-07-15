@@ -12,7 +12,8 @@ type authentication = {
 type exportData = {
         createUser: (email: string, password: string) => Promise<UserCredential>;
         loginUser: (email: string, password: string) => Promise<UserCredential>;
-        user: authentication | null
+        user: authentication | null;
+        logOut: () => Promise<void>;
 }
 
 export const AuthContext = createContext<exportData | null>(null);
