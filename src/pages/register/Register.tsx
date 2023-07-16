@@ -33,7 +33,7 @@ const Register = () => {
 
         const [show, setShow] = useState(false);
         return (
-                <div className="hero min-h-screen bg-base-200">
+                <div className="hero min-h-screen">
                         <div className="hero-content flex-col md:w-2/4">
                                 <div className="text-center">
                                         <h1 className="text-5xl font-bold">Register now!</h1>

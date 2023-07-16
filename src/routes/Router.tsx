@@ -7,6 +7,7 @@ import Dashboard from "../layout/dashboard/Dashboard";
 import Statistics from "../pages/dashboard/agency/Statistics";
 import PublishTicket from "../pages/dashboard/agency/PublishTicket";
 import Uses from "../layout/dashboard/Uses";
+import AgencyRegister from "../pages/agencyRegister/AgencyRegister";
 
 const router = createBrowserRouter([
         {
@@ -45,6 +46,12 @@ const router = createBrowserRouter([
                                 path: "/dashboard/publishTicket",
                                 element: <PublishTicket></PublishTicket>
                         },
+
+                        // create agency
+                        {
+                                path: "/dashboard/createAgency",
+                                element: <AgencyRegister></AgencyRegister>
+                        }
                 ]
         }
 ]);
