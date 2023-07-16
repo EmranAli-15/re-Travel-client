@@ -8,7 +8,7 @@ const Navbar = () => {
         const navList = (
                 <>
                         <li> <NavLink to="/">Journey</NavLink> </li>
-                        <li> <NavLink to="">My Profile</NavLink> </li>
+                        <li> <NavLink to="/dashboard">My Profile</NavLink> </li>
                 </>
         )
 
