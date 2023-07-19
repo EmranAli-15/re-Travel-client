@@ -1,33 +1,58 @@
-
+import useAuth from "../../hooks/useAuth";
+const imageToken = import.meta.env.VITE_IMAGE_TOKEN
 
 const AgencyRegister = () => {
+        const auth = useAuth();
+        const user = auth?.user;
+        const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${imageToken}`
+
+        const handleCreateAgency = (event: any) => {
+                event.preventDefault();
+                const form = event.target;
+
+                const email = form.email.value;
+                const agency = form.agency.value;
+                const img = form.img.files[0];
+
+                const formData = new FormData();
+                formData.append('image', img);
+
+                const agencyData = { email, agency, img };
+
+                fetch(imageHostingUrl, {
+                        method: 'POST',
+                        body: formData
+                })
+                        .then(res => res.json())
+                        .then(data => console.log(data))
+        }
         return (
                 <div className="hero min-h-screen bg-base-200">
-                        <div className="hero-content flex-col lg:flex-row-reverse">
-                                <div className="text-center lg:text-left">
-                                        <h1 className="text-5xl font-bold">Login now!</h1>
-                                </div>
-                                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                                        <div className="card-body">
+                        <div className="hero-content flex-col md:w-2/3">
+                                <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
+                                        <form onSubmit={handleCreateAgency} className="card-body">
                                                 <div className="form-control">
                                                         <label className="label">
                                                                 <span className="label-text">Email</span>
                                                         </label>
-                                                        <input type="text" placeholder="email" className="input input-bordered" />
+                                                        <input type="text" name="email" value={user?.email} className="input input-bordered" />
                                                 </div>
                                                 <div className="form-control">
                                                         <label className="label">
-                                                                <span className="label-text">Password</span>
+                                                                <span className="label-text">Agency Name</span>
                                                         </label>
-                                                        <input type="text" placeholder="password" className="input input-bordered" />
+                                                        <input type="text" name="agency" placeholder="Agency Name" className="input input-bordered" required />
+                                                </div>
+                                                <div className="form-control">
                                                         <label className="label">
-                                                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                                                <span className="label-text">Logo</span>
                                                         </label>
+                                                        <input name="img" type="file" className="file-input file-input-bordered w-full" required />
                                                 </div>
                                                 <div className="form-control mt-6">
-                                                        <button className="btn btn-primary">Login</button>
+                                                        <button className="btn btn-primary">create</button>
                                                 </div>
-                                        </div>
+                                        </form>
                                 </div>
                         </div>
                 </div>
