@@ -1,0 +1,4 @@
+.hoverMe:hover img{
+        scale: 125%;
+        transition: ease 0.4s;
+}

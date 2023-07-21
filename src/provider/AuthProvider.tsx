@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import app from '../firebase/firebase.config.ts'
 import { GoogleAuthProvider, createUserWithEmailAndPassword, UserCredential, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 const auth = getAuth(app);
+import axios from 'axios';
 
 type authentication = {
         email: string;
@@ -72,7 +73,16 @@ const AuthProvider = ({ children }: contextProps) => {
                                         photo: photoURL || '',
                                 };
                                 setUser(user);
-                        } else {
+
+
+                                axios.post('http://localhost:5000/jwt', { email: currentUser.email })
+                                        .then(data => {
+                                                localStorage.setItem('access-token', data.data.token);
+                                                setLoading(false);
+                                        })
+                        }
+                        else {
+                                localStorage.removeItem('access-token');
                                 setUser(null);
                         }
                 });
