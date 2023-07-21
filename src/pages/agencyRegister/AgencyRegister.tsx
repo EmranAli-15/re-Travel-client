@@ -13,6 +13,7 @@ const AgencyRegister = () => {
                 const email = form.email.value;
                 const agency = form.agency.value;
                 const img = form.img.files[0];
+                console.log(img);
 
                 const formData = new FormData();
                 formData.append('image', img);
@@ -27,7 +28,7 @@ const AgencyRegister = () => {
                         .then(data => console.log(data))
         }
         return (
-                <div className="hero min-h-screen bg-base-200">
+                <div className="hero min-h-screen">
                         <div className="hero-content flex-col md:w-2/3">
                                 <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
                                         <form onSubmit={handleCreateAgency} className="card-body">

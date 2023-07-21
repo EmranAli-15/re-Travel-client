@@ -11,6 +11,7 @@ type authentication = {
 
 type exportData = {
         createUser: (email: string, password: string) => Promise<UserCredential>;
+        updateUserProfile: (name: string, photo: string) => Promise<void>;
         loginUser: (email: string, password: string) => Promise<UserCredential>;
         user: authentication | null;
         logOut: () => Promise<void>;
@@ -45,6 +46,9 @@ const AuthProvider = ({ children }: contextProps) => {
                                 displayName: name,
                                 photoURL: photo,
                         });
+                }
+                else {
+                        return Promise.reject(new Error("User is not logged in."));
                 }
         }
 

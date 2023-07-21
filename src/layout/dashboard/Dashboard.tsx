@@ -5,7 +5,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Dashboard = () => {
-        const admin = true;
+        const admin = false;
         const auth = useAuth();
         const navigate = useNavigate();
 
@@ -51,9 +51,11 @@ const Dashboard = () => {
                                                         </button>
                                                 </div>
                                                 <br />
-                                                <button className="btn btn-link">
-                                                        <Link to="/dashboard/createAgency">Create Agency</Link>
-                                                </button>
+                                                {
+                                                        admin || <button className="btn btn-link">
+                                                                <Link to="/dashboard/createAgency">Create Agency</Link>
+                                                        </button>
+                                                }
                                         </div>
                                 </div>
 

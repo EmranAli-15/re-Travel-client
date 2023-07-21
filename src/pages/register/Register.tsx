@@ -4,6 +4,7 @@ import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { Link, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../components/SocialLogin';
 import useAuth from '../../hooks/useAuth'
+const imageToken = import.meta.env.VITE_IMAGE_TOKEN
 
 const Register = () => {
         const { register, handleSubmit, formState: { errors } } = useForm();
@@ -11,22 +12,36 @@ const Register = () => {
         const navigate = useNavigate();
 
         const auth = useAuth();
+        const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${imageToken}`
 
         const onSubmit = (data: any) => {
                 setError('');
                 const password = data.password;
                 const confirm = data.confirmPass;
-
+                const formData = new FormData();
+                formData.append('image', data.photo[0]);
+                
                 if (password !== confirm) {
                         return setError('password not matched');
                 }
 
                 auth?.createUser(data.email, data.password)
                         .then(() => {
-                                navigate('/login')
+                                fetch(imageHostingUrl, {
+                                        method: 'POST',
+                                        body: formData
+                                })
+                                        .then(res => res.json())
+                                        .then(imgResponse => {
+                                                if (imgResponse.success) {
+                                                        const imgURL = imgResponse.data.display_url;
+                                                        auth?.updateUserProfile(data.name, imgURL)
+                                                                .then(() =>{})
+                                                                .catch(() =>{})
+                                                }
+                                        })
                         })
-                        .catch((error: any) => {
-                                console.log(error)
+                        .catch(() => {
                                 setError('something wrong, try again')
                         })
         };
@@ -106,17 +121,17 @@ const Register = () => {
                                                         <>{errors.photo?.type === 'required' && <p className="register-alert">required</p>}</>
                                                 </div>
                                                 <input
-                                                        type="text"
+                                                        type="file"
                                                         {...register("photo", {
                                                                 required: true
                                                         })}
                                                         placeholder="photo URL"
-                                                        className="input input-bordered"
+                                                        className="file-input file-input-bordered file-input-accent w-full"
                                                         aria-invalid={errors.photo ? "true" : "false"}
                                                 />
 
 
-                                                <div className='form-control'>
+                                                <div className='form-control mt-4'>
                                                         <button className="btn btn-primary">
                                                                 <input type="submit" value="Register" />
                                                         </button>
