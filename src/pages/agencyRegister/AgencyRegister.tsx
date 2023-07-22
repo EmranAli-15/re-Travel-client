@@ -1,10 +1,12 @@
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 const imageToken = import.meta.env.VITE_IMAGE_TOKEN
 
 const AgencyRegister = () => {
         const auth = useAuth();
         const user = auth?.user;
         const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${imageToken}`
+        const [axiosSecure] = useAxiosSecure();
 
         const handleCreateAgency = (event: any) => {
                 event.preventDefault();
@@ -13,19 +15,26 @@ const AgencyRegister = () => {
                 const email = form.email.value;
                 const agency = form.agency.value;
                 const img = form.img.files[0];
-                console.log(img);
 
                 const formData = new FormData();
                 formData.append('image', img);
-
-                const agencyData = { email, agency, img };
 
                 fetch(imageHostingUrl, {
                         method: 'POST',
                         body: formData
                 })
                         .then(res => res.json())
-                        .then(data => console.log(data))
+                        .then(data => {
+                                console.log(data);
+                                if (data.success) {
+                                        const image = data.data.display_url;
+                                        const agencyData = { email, agency, img: image };
+                                        axiosSecure.post('/createAgency', agencyData)
+                                                .then(data => {
+                                                        console.log(data);
+                                                })
+                                }
+                        })
         }
         return (
                 <div className="hero min-h-screen">

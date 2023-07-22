@@ -18,9 +18,11 @@ const Register = () => {
                 setError('');
                 const password = data.password;
                 const confirm = data.confirmPass;
+                const name = data.name;
+                const email = data.email;
                 const formData = new FormData();
                 formData.append('image', data.photo[0]);
-                
+
                 if (password !== confirm) {
                         return setError('password not matched');
                 }
@@ -36,8 +38,8 @@ const Register = () => {
                                                 if (imgResponse.success) {
                                                         const imgURL = imgResponse.data.display_url;
                                                         auth?.updateUserProfile(data.name, imgURL)
-                                                                .then(() =>{})
-                                                                .catch(() =>{})
+                                                                .then(() => { })
+                                                                .catch(() => { })
                                                 }
                                         })
                         })
